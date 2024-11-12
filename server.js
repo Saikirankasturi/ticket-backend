@@ -9,13 +9,14 @@ const app = express();
 app.use(cors());
 app.use(express.json()); // Parse JSON bodies
 
-// MongoDB connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/support', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/support', {
+  connectTimeoutMS: 30000, // Increase timeout to 30 seconds
 })
   .then(() => console.log('MongoDB connected'))
-  .catch((err) => console.log('MongoDB connection error:', err));
+  .catch((err) => {
+    console.error('MongoDB connection error:', err.message);
+    process.exit(1); // Exit the app if the connection fails
+  });
 
 // Routes
 app.use('/api', ticketRoutes); // Prefix '/api' for all ticket-related routes
