@@ -9,7 +9,7 @@ const app = express();
 app.use(cors());
 app.use(express.json()); // Parse JSON bodies
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/support', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://sai:sai123@127.0.0.1:27017/support', {
   connectTimeoutMS: 30000, // Increase timeout to 30 seconds
 })
   .then(() => console.log('MongoDB connected'))
